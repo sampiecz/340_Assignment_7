@@ -17,4 +17,4 @@ assignment7.o: assignment7.cc
 
 # Pseudo-target to remove object code and executable files
 clean:
--rm -f *.o assignment7.exe
+	-rm -f *.o assignment7.exe

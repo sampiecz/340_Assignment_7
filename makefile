@@ -8,13 +8,13 @@
 CCFLAGS = -ansi -Wall -std=c++11
 
 # Rule to link object code files to create executable file
-assignment5: assignment5.o
-	g++ $(CCFLAGS) -o assignment5.exe assignment5.o
+assignment7: assignment7.o
+	g++ $(CCFLAGS) -o assignment7.exe assignment7.o
 
 # Rule to compile source code file to object code
-assignment5.o: assignment5.cc	assignment5.h
-	g++ $(CCFLAGS) -c assignment5.cc
+assignment7.o: assignment7.cc
+	g++ $(CCFLAGS) -c assignment7.cc
 
 # Pseudo-target to remove object code and executable files
 clean:
--rm -f *.o assignment5.exe
+-rm -f *.o assignment7.exe

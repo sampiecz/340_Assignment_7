@@ -8,6 +8,24 @@
  Date Due: April 4, 2018 
  Purpose: 
  ************************************************************/
+#include <vector>
+#include <algorithm>
+#include <iostream>
+
+using std::vector;
+using std::random_shuffle;
+using std::cout;
+using std::endl;
+using std::swap;
+
+// forward declarations
+void heapify( vector < int >& v, int heap_size, int r, bool (*compar)(int, int) );
+bool less_than ( int e1, int e2 );
+bool greater_than ( int e1, int e2 );
+void build_heap ( vector < int >& v, int heap_size, bool (*compar)(int, int) );
+void heap_sort ( vector < int >& v, int heap_size, bool (*compar)(int, int) );
+int extract_heap ( vector < int >& v, int& heap_size, bool (*compar)(int, int) );
+void print_vector ( vector < int >& v, int pos, int size );
 
 const int HEAP_SIZE = 50;
 
@@ -75,7 +93,7 @@ void build_heap ( vector < int >& v, int heap_size, bool (*compar)(int, int) )
         // vector we need to call heapify  
         if( compar( heap[k], v[k]) != false )
         {
-            heapify( v, heap_size, compar ); 
+            heapify( v, heap_size, v[0], compar ); 
         }
     }
 }
@@ -152,13 +170,12 @@ bool less_than ( int e1, int e2 )
 bool greater_than ( int e1, int e2 )
 {
     if ( e1 > e2 )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+    {
+        return true;
+    }
+    else
+    {
+        return false;
     }
 }
 
@@ -252,6 +269,6 @@ void print_vector ( vector < int >& v, int pos, int size )
     vector<int>::const_iterator it;
     for( it = v.begin() + 1; it != v.end(); it++ )
     {
-        cout << v[*i] << endl;
+        cout << v[*it] << endl;
     }
 }

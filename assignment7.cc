@@ -59,14 +59,24 @@ int main(int argc, char** argv) {
  ***************************************************************/
 void build_heap ( vector < int >& v, int heap_size, bool (*compar)(int, int) )
 {
-    // heap_size/2 stores the last non-leaf node
+    // create our heap array
+    int heap[heap_size];
 
-    // need to look into the at method
-    for( int i = 1; compar(v.at(i), heap_size); i++)
+    // iterate until we are one less than heap size -- remember 
+    // heap starts at 1 becuase garbage / null value in root
+    for( int k = 1; k < heap_size; k++ )
     {
-        // need to pass in arguments not sure if I need to do
-        // anything else besides heapify. 
-        heapify(); 
+        // set the current position in the array to the current
+        // position in the vector that we are iterating over
+        // basically filling the array with one value per iteration
+        heap[k] = v[k];
+
+        // if the element in the heap equals the element in the
+        // vector we need to call heapify  
+        if( compar( heap[k], v[k]) != false )
+        {
+            heapify( v, heap_size, compar ); 
+        }
     }
 }
 

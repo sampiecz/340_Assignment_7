@@ -47,22 +47,34 @@ int main(int argc, char** argv) {
   
  Name: build_heap 
 
- Use: 
+ Use: Builds a heap using a vector with ints in it. Then calls
+ heapify until the vector is organized into a max heap.
 
- Parameters:  
+ Parameters: A reference to an integer vector v, an int 
+ containing the heap's size, and a pointer to a function that 
+ compairs two integers.
 
  Returns: None. 
 
  ***************************************************************/
 void build_heap ( vector < int >& v, int heap_size, bool (*compar)(int, int) )
 {
+    // heap_size/2 stores the last non-leaf node
+
+    // need to look into the at method
+    for( int i = 1; compar(v.at(i), heap_size); i++)
+    {
+        // need to pass in arguments not sure if I need to do
+        // anything else besides heapify. 
+        heapify(); 
+    }
 }
 
 /***************************************************************
   
  Name: heapify 
 
- Use: 
+ Use:  
 
  Parameters:  
 
@@ -77,30 +89,49 @@ void heapify( vector < int >& v, int heap_size, int r, bool (*compar)(int, int) 
   
  Name: less_than 
 
- Use: 
+ Use: Compares two ints, if the first int is less than the 
+ second int it returns true.
 
- Parameters:  
+ Parameters: Two ints, the first one is e1 and the second one e2. 
 
  Returns: A bool. 
 
  ***************************************************************/
 bool less_than ( int e1, int e2 )
 {
+    if ( e1 < e2 )
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
 /***************************************************************
   
  Name: greater_than 
 
- Use: 
+ Use: Compares two ints, if the first int is less than the 
+ second int it returns true.
 
- Parameters:  
+ Parameters: Two ints, the first one is e1 and the second one e2.
 
  Returns: A bool. 
 
  ***************************************************************/
 bool greater_than ( int e1, int e2 )
 {
+    if ( e1 > e2 )
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
 
 /***************************************************************
@@ -137,7 +168,7 @@ int extract_heap ( vector < int >& v, int& heap_size, bool (*compar)(int, int) )
   
  Name: print_vector 
 
- Use: 
+ Use: Prints a vector starting at pos until the size. 
 
  Parameters: A reference to an int vector v, and two ints pos
  and size. 
@@ -147,4 +178,15 @@ int extract_heap ( vector < int >& v, int& heap_size, bool (*compar)(int, int) )
  ***************************************************************/
 void print_vector ( vector < int >& v, int pos, int size )
 {
+    const int ITEM_W = 5;
+    const int NO_ITEMS = 8;
+    vector<int>::const_iterator it;
+    for (it = v.at(pos); it != v.at(size); it++)
+    {
+        cout << setw(ITEM_W) << *it;
+        if ((it - v.at(pos) % NO_ITEMS == 7)
+        { 
+            cout << endl;
+        }
+	}
 }

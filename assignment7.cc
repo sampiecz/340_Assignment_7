@@ -185,9 +185,10 @@ bool greater_than ( int e1, int e2 )
   
  Name: heap_sort 
 
- Use: 
+ Use: Implementation of heap sort algorithm. 
 
- Parameters:  
+ Parameters: A reference to a vector v, an integer describing
+ the size of the heap. A pointer to a function called compar. 
 
  Returns: None. 
 

@@ -79,24 +79,9 @@ int main(int argc, char** argv) {
  ***************************************************************/
 void build_heap ( vector < int >& v, int heap_size, bool (*compar)(int, int) )
 {
-    // create our heap array
-    int heap[heap_size];
-
-    // iterate until we are one less than heap size -- remember 
-    // heap starts at 1 becuase garbage / null value in root
-    for( int k = 1; k < heap_size; k++ )
+    for( int i = heap_size / 2; i >= 1; i-- )
     {
-        // set the current position in the array to the current
-        // position in the vector that we are iterating over
-        // basically filling the array with one value per iteration
-        heap[k] = v[k];
-
-        // if the element in the heap equals the element in the
-        // vector we need to call heapify  
-        if( compar( heap[k], v[k]) != false )
-        {
-            heapify( v, heap_size, v[0], compar ); 
-        }
+        heapify(v, heap_size, i, compar);
     }
 }
 
@@ -116,20 +101,29 @@ void build_heap ( vector < int >& v, int heap_size, bool (*compar)(int, int) )
  ***************************************************************/
 void heapify( vector < int >& v, int heap_size, int r, bool (*compar)(int, int) )
 {
-    // Loops through every element in vector starting at position 2
-    for( int i = 2; i < heap_size; i++ )
+    int left = 2*r;
+    int right = 2*r+1;
+    int big;
+    int temporary;
+
+    if( left <= heap_size && compar(v[left], v[r]))
     {
-        // if the vector's value at index i is greater than the value at index i + 1
-        // then the value at index i-1 is equal to the value at index i+1
-        if ( v[i] > v[i+1] )
-        {
-            v[i-1] = v[i+1];
-        }
-        // otherwise set the index i-1 equal to the current index
-        else
-        {
-            v[i-1] = v[i];
-        }
+        big = left;
+    }
+    else
+    {
+        big = r;
+    }
+    if( right <= heap_size && compar(v[right], v[big]))
+    {
+        big = right;
+    }
+    if( big!= r )
+    {
+        temporary = v[r];
+        v[r] = v[big];
+        v[big] = temporary;
+        heapify(v, heap_size, big, compar);
     }
 }
 
@@ -195,14 +189,14 @@ bool greater_than ( int e1, int e2 )
  ***************************************************************/
 void heap_sort ( vector < int >& v, int heap_size, bool (*compar)(int, int) )
 {
-    int x = 1;
-    int i = heap_size -1;
-    while( i > x )
+    int i;
+
+    for( i = heap_size; i >= 2; i-- )
     {
-        swap( v[i], v[x] );
-        x++;
-        i--;
+        v[i] = extract_heap(v, heap_size, compar);
     }
+
+    reverse( v.begin() + 1, v.end());
 }
 
 /***************************************************************
@@ -221,21 +215,18 @@ void heap_sort ( vector < int >& v, int heap_size, bool (*compar)(int, int) )
  ***************************************************************/
 int extract_heap ( vector < int >& v, int& heap_size, bool (*compar)(int, int) )
 {
-    // These allow us to re arrange heaps and max value after deletion
-    vector<int>::const_iterator i = v.begin() + 1;
-    vector<int>::const_iterator j = v.end() + 1;
+    int delete_me;
 
-    // This allows us to return max value to user after it has been deleted
-    int index = *i;
+    delete_me = v[1];
 
-    // This deletes the current max value
-    v.erase(i);
+    v[1] = v[heap_size];
 
-    // This swaps the first value of the heap with the heaps last value
-    swap(v[*i], v[*j]);
+    heap_size = heap_size -1;
 
-    // This returns the value that was at the top of the heap 
-    return index;
+    heapify( v, heap_size, 1, compar );
+
+    return delete_me;
+
 }
 
 /***************************************************************

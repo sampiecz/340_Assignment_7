@@ -11,12 +11,14 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
+#include <iomanip>
 
 using std::vector;
 using std::random_shuffle;
 using std::cout;
 using std::endl;
 using std::swap;
+using std::setw;
 
 // forward declarations
 void heapify( vector < int >& v, int heap_size, int r, bool (*compar)(int, int) );
@@ -249,26 +251,22 @@ int extract_heap ( vector < int >& v, int& heap_size, bool (*compar)(int, int) )
  ***************************************************************/
 void print_vector ( vector < int >& v, int pos, int size )
 {
-    // pretty sure this is wrong -- but partially proper
-    /*
     const int ITEM_W = 5;
     const int NO_ITEMS = 8;
+
     vector<int>::const_iterator it;
-    for (it = v.at(pos); it != v.at(size); it++)
+	int counter = 0;
+    for (it = v.begin() + 1; it != v.end(); it++)
     {
         cout << setw(ITEM_W) << *it;
-        if ((it - v.at(pos) % NO_ITEMS == 7)
+        if (counter % NO_ITEMS == 7)
         { 
             cout << endl;
         }
-	}
-    */
 
-    // I know I know this isn't what they want
-    // but I need to see if I can get this working first
-    vector<int>::const_iterator it;
-    for( it = v.begin() + 1; it != v.end(); it++ )
-    {
-        cout << v[*it] << endl;
-    }
+        counter++;
+	}
+
+	cout << endl;
+
 }
